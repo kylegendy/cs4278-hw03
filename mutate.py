@@ -17,15 +17,11 @@ class NegateComparison(ast.NodeTransformer):
 	def visit_Comp(self, node):
         # check if valid node
 		newNode = self.negateComp(node)
-		if (newNode != node):
+		if (newNode != False and newNode != node):
 			print(node)
 			print(newNode)
 		if (newNode != False):
 			# update seed and return new node
-			print("the old:")
-			print(node)
-			print("and the new:")
-			print(newNode)
 			return ast.copy_location(newNode, node)
 
         # validates node and negates comparison
