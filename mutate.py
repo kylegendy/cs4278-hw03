@@ -17,7 +17,7 @@ class NegateComparison(ast.NodeTransformer):
 	def visit_Comp(self, node):
         # check if valid node
 		newNode = self.negateComp(node)
-		if (isinstance(node, ast.Compare)):
+		if (newNode != node):
 			print(node)
 			print(newNode)
 		if (newNode != False):
@@ -30,19 +30,18 @@ class NegateComparison(ast.NodeTransformer):
 
         # validates node and negates comparison
 	def negateComp(self, node):
-		if isinstance(node, ast.Compare):
-			if (isinstance(node, ast.Eq)):
-				return ast.NotEq
-			elif (isinstance(node, ast.NotEq)):
-				return ast.Eq
-			elif (isinstance(node, ast.Lt)):
-				return ast.GtE
-			elif (isinstance(node, ast.LtE)):
-				return ast.Gt
-			elif (isinstance(node, ast.Gt)):
-				return ast.LtE
-			elif (isinstance(node, ast.GtE)):
-				return ast.NotEq
+		if (isinstance(node, ast.Eq)):
+			return ast.NotEq
+		elif (isinstance(node, ast.NotEq)):
+			return ast.Eq
+		elif (isinstance(node, ast.Lt)):
+			return ast.GtE
+		elif (isinstance(node, ast.LtE)):
+			return ast.Gt
+		elif (isinstance(node, ast.Gt)):
+			return ast.LtE
+		elif (isinstance(node, ast.GtE)):
+			return ast.NotEq
 
 		return False
 
