@@ -14,8 +14,10 @@ class NegateComparison(ast.NodeTransformer):
 
         # handles node input
 	def visit_Comp(self, node):
-                # check if valid node
+        # check if valid node
+		print(ast.dump(node))
 		newNode = self.negateComp(node)
+		print(ast.dump(node))
 		if (newNode != False):
 			# update seed and return new node
 			print("the old:")
