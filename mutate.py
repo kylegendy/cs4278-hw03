@@ -51,7 +51,7 @@ with open(filename, "r") as source:
 negator = NegateComparison(0.1)
 
 for node in ast.walk(tree):
-	negator.visit(node)
+	negator.visit_Comp(node)
 
 
 class FuncLister(ast.NodeVisitor):
