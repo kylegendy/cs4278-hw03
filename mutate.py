@@ -60,7 +60,7 @@ with open(filename, "r") as source:
 negator = NegateComparison(0.1)
 
 for node in ast.walk(tree):
-	if (node == ast.Add):
+	if (node == ast.BinOp):
 		print(ast.dump(node))
 
 
