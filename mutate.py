@@ -60,7 +60,8 @@ with open(filename, "r") as source:
 negator = NegateComparison(0.1)
 
 for node in ast.walk(tree):
-	print(ast.dump(node))
+	if (node.op == ast.Sub or node.op == ast.Add):
+		print(ast.dump(node))
 
 
 class FuncLister(ast.NodeVisitor):
