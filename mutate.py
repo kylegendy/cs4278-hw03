@@ -60,7 +60,7 @@ with open(filename, "r") as source:
 negator = NegateComparison(0.1)
 
 for node in ast.walk(tree):
-	if (node == BinOp(left=Subscript(value=Name(id='block', ctx=Load()), slice=Index(value=Num(n=1)), ctx=Load()), op=Sub(), right=Subscript(value=Name(id='block', ctx=Load()), slice=Index(value=Num(n=0)), ctx=Load()))):
+	if (node == ast.BinOp(left=Subscript(value=Name(id='block', ctx=Load()), slice=Index(value=Num(n=1)), ctx=Load()), op=Sub(), right=Subscript(value=Name(id='block', ctx=Load()), slice=Index(value=Num(n=0)), ctx=Load()))):
 		print(ast.dump(node))
 
 
