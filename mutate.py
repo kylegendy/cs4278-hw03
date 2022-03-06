@@ -18,7 +18,7 @@ class NegateComparison(ast.NodeTransformer):
 		newNode = self.negateComp(node)
 		if (newNode != False):
 			# check probability
-			if (random.uniform(0,1) <= self.probability_)
+			if (random.uniform(0,1) <= self.probability_):
 				# update seed and return new node
 				return ast.copy_location(newNode, node)
 
