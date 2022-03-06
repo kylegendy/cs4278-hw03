@@ -1,8 +1,8 @@
 
 import sys
 import ast
-
-seed = 0
+import random
+random.seed(10)
 
 filename = "fuzzywuzzy.py"
 
@@ -10,19 +10,17 @@ filename = "fuzzywuzzy.py"
 class NegateComparison(ast.NodeTransformer):
         # constructor requires probability value
 	def __init__(self, probability):
-		print("being made")
 		self.probability_ = probability
 
         # handles node input
 	def visit_Comp(self, node):
         # check if valid node
 		newNode = self.negateComp(node)
-		if (newNode != False and newNode != node):
-			print(node)
-			print(newNode)
 		if (newNode != False):
-			# update seed and return new node
-			return ast.copy_location(newNode, node)
+			# check probability
+			if (random.uniform(0,1) <= self.probability_)
+				# update seed and return new node
+				return ast.copy_location(newNode, node)
 
         # validates node and negates comparison
 	def negateComp(self, node):
@@ -38,8 +36,23 @@ class NegateComparison(ast.NodeTransformer):
 			return ast.LtE
 		elif (isinstance(node, ast.GtE)):
 			return ast.NotEq
-
+		# else not a valid node
 		return False
+
+# swap binary operators + and -, as well as * and /
+# class SwapBinaryOps(ast.NodeTransformer):
+# 	# constructor requires probability value
+# 	def __init__(self, probability):
+# 			self.probability_ = probability
+
+# 	# handles node input
+# 	def visit_Swap(self, node):
+# 			if (self.isSwappable(node)):
+
+
+# 	# check if node is valid for swap
+# 	def swap(self, node):
+# 		if (isinstance(node, ast.Add))
 
 with open(filename, "r") as source:
 	tree = ast.parse(source.read())
