@@ -10,6 +10,7 @@ filename = "fuzzywuzzy.py"
 class NegateComparison(ast.NodeTransformer):
         # constructor requires probability value
 	def __init__(self, probability):
+		print("being made")
 		self.probability_ = probability
 
         # handles node input
