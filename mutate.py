@@ -5,7 +5,10 @@ import astor
 import random
 random.seed(10)
 
-filename = "fuzzywuzzy.py"
+print(sys.argv[0])
+print(sys.argv[1])
+
+filename = 
 
 # negate any single comparison operator
 class NegateComparison(ast.NodeTransformer):
@@ -115,5 +118,3 @@ with open("0.py", "w") as newfile:
 # i = 0
 
 # while (i < )
-
-print(sys.argv[1])
