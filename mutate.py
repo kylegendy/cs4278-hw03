@@ -18,7 +18,7 @@ class NegateComparison(ast.NodeTransformer):
 		self.probability_ = probability
 
         # handles node input
-	def visit_Comp(self, node):
+	def visit_Name(self, node):
         # check if valid node
 		newNode = self.negateComp(node)
 		if (newNode != False):
@@ -52,7 +52,7 @@ class SwapBinaryOps(ast.NodeTransformer):
 			self.probability_ = probability
 
 	# handles node input
-	def visit_Swap(self, node):
+	def visit_Name(self, node):
 		# call swap
 		newNode = self.swap(node)
 		if (newNode != False):
@@ -113,9 +113,9 @@ while (i < iterations):
 	
 	# iterate through and transform nodes
 	for node in ast.walk(tree):
-		negator.visit_Comp(node)
-		swapper.visit_Swap(node)
-		deleter.visit_Delete(node)
+		negator.visit(node)
+		swapper.visit(node)
+		deleter.visit(node)
 
 	# write output
 	lastFile = str(i) + ".py"
