@@ -80,8 +80,6 @@ class DeleteAssign(ast.NodeTransformer):
 		# call swap
 		newNode = self.deleteAssign(node)
 		if (newNode != False):
-			print(node)
-			print(newNode)
 			# check probability
 			if (random.uniform(0,1) <= self.probability_):
 				# tranform node
