@@ -113,9 +113,9 @@ while (i < iterations):
 	
 	# iterate through and transform nodes
 	for node in ast.walk(tree):
-		negator.visit(node)
-		swapper.visit(node)
-		deleter.visit(node)
+		negator.visit_Comp(node)
+		swapper.visit_Swap(node)
+		deleter.visit_Delete(node)
 
 	# write output
 	lastFile = str(i) + ".py"
