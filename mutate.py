@@ -8,7 +8,7 @@ random.seed(10)
 print(sys.argv[0])
 print(sys.argv[1])
 
-filename = 
+filename = sys.argv[0]
 
 # negate any single comparison operator
 class NegateComparison(ast.NodeTransformer):
