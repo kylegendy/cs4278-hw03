@@ -100,7 +100,7 @@ swapper = SwapBinaryOps(0.1)
 deleter = DeleteAssign(1)
 
 for node in ast.walk(tree):
-	deleter.visit_Swap(node)
+	deleter.visit_Delete(node)
 
 
 class FuncLister(ast.NodeVisitor):
