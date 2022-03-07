@@ -120,7 +120,7 @@ while (i < iterations):
 	# write output
 	lastFile = str(i) + ".py"
 	with open(lastFile, "w") as newfile:
-		s = astor.to_source(tree, indent_with='\t', add_line_information=False, source_generator_class=astor.SourceGenerator)
+		s = astor.to_source(tree, indent_with=' ' * 4, add_line_information=False, source_generator_class=astor.SourceGenerator)
 		newfile.write(s)
 		newfile.close()
 	
