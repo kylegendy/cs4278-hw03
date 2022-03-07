@@ -104,7 +104,7 @@ deleter = DeleteAssign(0)
 i = 0
 lastFile = filename
 
-while (i < iterations) {
+while (i < iterations):
 
 	# opens the file
 	with open(lastFile, "r") as source:
@@ -125,4 +125,3 @@ while (i < iterations) {
 		newfile.close()
 	
 	i += 1
-}
