@@ -51,8 +51,6 @@ class SwapBinaryOps(ast.NodeTransformer):
 		# call swap
 		newNode = self.swap(node)
 		if (newNode != False):
-			print(node)
-			print(newNode)
 			# check probability
 			if (random.uniform(0,1) <= self.probability_):
 				# tranform node
@@ -71,15 +69,38 @@ class SwapBinaryOps(ast.NodeTransformer):
 		else:
 			return False
 
+class DeleteAssign(ast.NodeTransformer):
+	# constructor requires probability value
+	def __init__(self, probability):
+		self.probability_ = probability
+
+	# handles node input
+	def visit_Delete(self, node):
+		# call swap
+		newNode = self.deleteAssign(node)
+		if (newNode != False):
+			print(node)
+			print(newNode)
+			# check probability
+			if (random.uniform(0,1) <= self.probability_):
+				# tranform node
+				return ast.copy_location(newNode, node)
+
+	def deleteAssign(self, node):
+		if (isinstance(node, ast.Assign)):
+			return None 
+		else:
+			return False
 
 with open(filename, "r") as source:
 	tree = ast.parse(source.read())
 
 negator = NegateComparison(0.1)
-swapper = SwapBinaryOps(1)
+swapper = SwapBinaryOps(0.1)
+deleter = DeleteAssign(1)
 
 for node in ast.walk(tree):
-	swapper.visit_Swap(node)
+	deleter.visit_Swap(node)
 
 
 class FuncLister(ast.NodeVisitor):
