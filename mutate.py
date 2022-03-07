@@ -9,7 +9,7 @@ print(sys.argv[1])
 print(sys.argv[2])
 
 filename = sys.argv[1]
-iterations = sys.argv[2]
+iterations = int(sys.argv[2])
 
 # negate any single comparison operator
 class NegateComparison(ast.NodeTransformer):
