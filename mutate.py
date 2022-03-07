@@ -105,4 +105,6 @@ for node in ast.walk(tree):
 	deleter.visit_Delete(node)
 
 with open("0.py", "w") as newfile:
-	newfile.write(astor(tree, indent_with='\t', add_line_information=False, source_generator_class=astor.SourceGenerator))
+	s = astor.to_source(tree, indent_with='\t', add_line_information=False, source_generator_class=astor.SourceGenerator)
+	newfile.write(s)
+	newfile.close()
