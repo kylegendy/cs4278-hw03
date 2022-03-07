@@ -5,10 +5,11 @@ import astor
 import random
 random.seed(10)
 
-print(sys.argv[0])
 print(sys.argv[1])
+print(sys.argv[2])
 
-filename = sys.argv[0]
+filename = sys.argv[1]
+iterations = sys.argv[2]
 
 # negate any single comparison operator
 class NegateComparison(ast.NodeTransformer):
@@ -73,6 +74,7 @@ class SwapBinaryOps(ast.NodeTransformer):
 		else:
 			return False
 
+# delete assignment functions, jusst ast.Assign
 class DeleteAssign(ast.NodeTransformer):
 	# constructor requires probability value
 	def __init__(self, probability):
@@ -94,27 +96,33 @@ class DeleteAssign(ast.NodeTransformer):
 		else:
 			return False
 
-with open(filename, "r") as source:
-	tree = ast.parse(source.read())
-	source.close()
-
 # instantiate objects for transformation
 negator = NegateComparison(1)
 swapper = SwapBinaryOps(1)
 deleter = DeleteAssign(0)
 
-# iterate through and transform nodes
-for node in ast.walk(tree):
-	negator.visit(node)
-	swapper.visit(node)
-	deleter.visit(node)
+i = 0
+lastFile = filename
 
-# write output
-with open("0.py", "w") as newfile:
-	s = astor.to_source(tree, indent_with='\t', add_line_information=False, source_generator_class=astor.SourceGenerator)
-	newfile.write(s)
-	newfile.close()
+while (i < iterations) {
 
-# i = 0
+	# opens the file
+	with open(lastFile, "r") as source:
+		tree = ast.parse(source.read())
+		source.close()
+	
+	# iterate through and transform nodes
+	for node in ast.walk(tree):
+		negator.visit(node)
+		swapper.visit(node)
+		deleter.visit(node)
 
-# while (i < )
+	# write output
+	lastFile = str(i) + ".py"
+	with open(lastFile, "w") as newfile:
+		s = astor.to_source(tree, indent_with='\t', add_line_information=False, source_generator_class=astor.SourceGenerator)
+		newfile.write(s)
+		newfile.close()
+	
+	i += 1
+}
