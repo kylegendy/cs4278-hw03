@@ -20,27 +20,29 @@ class NegateComparison(ast.NodeTransformer):
         # handles node input
 	def visit_Name(self, node):
         # check if valid node
-		newNode = self.negateComp(node)
-		if (newNode != False):
+		newOp = self.negateComp(node)
+		if (newOp != False):
 			# check probability
 			if (random.uniform(0,1) <= self.probability_):
+				newNode = node
+				node.op = newOp
 				# transform node
 				return ast.copy_location(newNode, node)
 
         # validates node and negates comparison
 	def negateComp(self, node):
 		if (isinstance(node, ast.Eq)):
-			return ast.NotEq
+			return ast.NotEq()
 		elif (isinstance(node, ast.NotEq)):
-			return ast.Eq
+			return ast.Eq()
 		elif (isinstance(node, ast.Lt)):
-			return ast.GtE
+			return ast.GtE()
 		elif (isinstance(node, ast.LtE)):
-			return ast.Gt
+			return ast.Gt()
 		elif (isinstance(node, ast.Gt)):
-			return ast.LtE
+			return ast.LtE()
 		elif (isinstance(node, ast.GtE)):
-			return ast.NotEq
+			return ast.NotEq()
 		else:
 			# else not a valid node
 			return False
@@ -54,23 +56,25 @@ class SwapBinaryOps(ast.NodeTransformer):
 	# handles node input
 	def visit_Name(self, node):
 		# call swap
-		newNode = self.swap(node)
-		if (newNode != False):
+		newOp = self.swap(node)
+		if (newOp != False):
 			# check probability
 			if (random.uniform(0,1) <= self.probability_):
+				newNode = node
+				node.op = newOp
 				# tranform node
 				return ast.copy_location(newNode, node)
 
 	# check if node is valid for swap
 	def swap(self, node):
 		if (isinstance(node, ast.Add)):
-			return ast.Sub
+			return ast.Sub()
 		elif (isinstance(node, ast.Sub)):
-			return ast.Add
+			return ast.Add()
 		elif (isinstance(node, ast.Mult)):
-			return ast.Div
+			return ast.Div()
 		elif (isinstance(node, ast.Div)):
-			return ast.Mult
+			return ast.Mult()
 		else:
 			return False
 
