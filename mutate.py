@@ -95,8 +95,8 @@ with open(filename, "r") as source:
 	tree = ast.parse(source.read())
 	source.close()
 
-negator = NegateComparison(0.1)
-swapper = SwapBinaryOps(0.1)
+negator = NegateComparison(1)
+swapper = SwapBinaryOps(1)
 deleter = DeleteAssign(0)
 
 for node in ast.walk(tree):
