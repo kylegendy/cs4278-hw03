@@ -19,7 +19,7 @@ class NegateComparison(ast.NodeTransformer):
 		if (newNode != False):
 			# check probability
 			if (random.uniform(0,1) <= self.probability_):
-				# update seed and return new node
+				# transform node
 				return ast.copy_location(newNode, node)
 
         # validates node and negates comparison
@@ -36,32 +36,50 @@ class NegateComparison(ast.NodeTransformer):
 			return ast.LtE
 		elif (isinstance(node, ast.GtE)):
 			return ast.NotEq
-		# else not a valid node
-		return False
+		else:
+			# else not a valid node
+			return False
 
 # swap binary operators + and -, as well as * and /
-# class SwapBinaryOps(ast.NodeTransformer):
-# 	# constructor requires probability value
-# 	def __init__(self, probability):
-# 			self.probability_ = probability
+class SwapBinaryOps(ast.NodeTransformer):
+	# constructor requires probability value
+	def __init__(self, probability):
+			self.probability_ = probability
 
-# 	# handles node input
-# 	def visit_Swap(self, node):
-# 			if (self.isSwappable(node)):
+	# handles node input
+	def visit_Swap(self, node):
+		# call swap
+		newNode = self.swap(node)
+		if (newNode != False):
+			print(node)
+			print(newNode)
+			# check probability
+			if (random.uniform(0,1) <= self.probability_):
+				# tranform node
+				return ast.copy_location(newNode, node)
 
+	# check if node is valid for swap
+	def swap(self, node):
+		if (isinstance(node, ast.Add)):
+			return ast.Sub
+		elif (isinstance(node, ast.Sub)):
+			return ast.Add
+		elif (isinstance(node, ast.Mult)):
+			return ast.Div
+		elif (isinstance(node, ast.Div)):
+			return ast.Mult
+		else:
+			return False
 
-# 	# check if node is valid for swap
-# 	def swap(self, node):
-# 		if (isinstance(node, ast.Add))
 
 with open(filename, "r") as source:
 	tree = ast.parse(source.read())
 
 negator = NegateComparison(0.1)
+swapper = SwapBinaryOps(1)
 
 for node in ast.walk(tree):
-	if (isinstance(node, ast.Sub)):
-		print(ast.dump(node))
+	swapper.visit_Swap(node)
 
 
 class FuncLister(ast.NodeVisitor):
