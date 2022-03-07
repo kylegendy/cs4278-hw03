@@ -111,3 +111,9 @@ with open("0.py", "w") as newfile:
 	s = astor.to_source(tree, indent_with='\t', add_line_information=False, source_generator_class=astor.SourceGenerator)
 	newfile.write(s)
 	newfile.close()
+
+# i = 0
+
+# while (i < )
+
+print(sys.argv[1])
