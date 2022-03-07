@@ -1,6 +1,7 @@
 
 import sys
 import ast
+import astor
 import random
 random.seed(10)
 
@@ -94,16 +95,16 @@ class DeleteAssign(ast.NodeTransformer):
 
 with open(filename, "r") as source:
 	tree = ast.parse(source.read())
+	source.close()
 
 negator = NegateComparison(0.1)
 swapper = SwapBinaryOps(0.1)
-deleter = DeleteAssign(1)
+deleter = DeleteAssign(0)
 
 for node in ast.walk(tree):
+	negator.visit_Comp(node)
+	swapper.visit_Swap(node)
 	deleter.visit_Delete(node)
 
-
-class FuncLister(ast.NodeVisitor):
-	def visit_FunctionDef(self, node):
-		print(node.name)
-		self.generic_visit(node)
+with open("0.py", "w") as newfile:
+	newfile.write(astor(tree, indent_with='\t', add_line_information=False, source_generator_class=astor.SourceGenerator))
